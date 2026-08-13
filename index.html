@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <meta
     name="description"
     content="Booking Air — Flight, Hotel and Car Search"
@@ -19,7 +20,7 @@
   >
 
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <script src="js/script.js" defer></script>
 </head>
 
 <body>
@@ -28,42 +29,28 @@
 
   <div class="brand" aria-label="Booking Air">
     <span class="brand-mark" aria-hidden="true">✈</span>
-
     <span class="brand-name">
       Booking<span>Air</span>
     </span>
   </div>
+<nav class="topnav" aria-label="Main navigation">
+  <a href="book.html" class="active">Book</a>
+  <a href="recent.html">My trips</a>
+  <a href="check-in.html">Check-in</a>
+  <a href="status.html">Status</a>
+</nav>
 
-  <nav class="topnav" aria-label="Main navigation">
-    <a href="#" class="active">Book</a>
-    <a href="#recent">My trips</a>
-    <a href="#">Check-in</a>
-    <a href="#">Status</a>
-  </nav>
-
-  <button
-    class="account"
-    type="button"
-    aria-label="Account menu"
-  >
+  <button class="account" type="button" aria-label="Account menu">
     <span class="avatar" aria-hidden="true">FA</span>
-    <span class="account-name">
-      Muhammad Faizan Amjad
-    </span>
+    <span class="account-name">Muhammad Faizan Amjad</span>
   </button>
 
 </header>
 
-
 <main class="wrap">
 
-  <!-- HERO -->
-
   <section class="hero">
-
-    <p class="hero-kicker">
-      Where to next?
-    </p>
+    <p class="hero-kicker">Where to next?</p>
 
     <h1 class="hero-title">
       Find your trip
@@ -72,15 +59,10 @@
     <p class="hero-sub">
       Search flights, hotels, and car rentals across 240+ destinations.
     </p>
-
   </section>
 
 
-  <!-- SEARCH -->
-
   <section class="search" aria-label="Travel search">
-
-    <!-- SERVICE TABS -->
 
     <div
       class="service-tabs"
@@ -121,7 +103,7 @@
     </div>
 
 
-    <!-- ================= FLIGHT FORM ================= -->
+    <!-- FLIGHTS -->
 
     <form
       id="flightForm"
@@ -160,16 +142,10 @@
 
       <div class="leg">
 
-        <!-- FROM -->
-
         <div class="field">
-
-          <label for="from-0">
-            From
-          </label>
+          <label for="from-0">From</label>
 
           <div class="airport-input">
-
             <input
               id="from-0"
               class="ap"
@@ -179,16 +155,10 @@
               value="New York"
             >
 
-            <span class="ap-code">
-              JFK
-            </span>
-
+            <span class="ap-code">JFK</span>
           </div>
-
         </div>
 
-
-        <!-- SWAP -->
 
         <button
           class="swap"
@@ -200,16 +170,10 @@
         </button>
 
 
-        <!-- TO -->
-
         <div class="field">
-
-          <label for="to-0">
-            To
-          </label>
+          <label for="to-0">To</label>
 
           <div class="airport-input">
-
             <input
               id="to-0"
               class="ap"
@@ -219,55 +183,37 @@
               value="London"
             >
 
-            <span class="ap-code">
-              LHR
-            </span>
-
+            <span class="ap-code">LHR</span>
           </div>
-
         </div>
 
 
-        <!-- DEPART -->
-
         <div class="field">
-
-          <label for="depart-0">
-            Depart
-          </label>
+          <label for="depart-0">Depart</label>
 
           <input
             id="depart-0"
             class="date"
             type="date"
           >
-
         </div>
 
-
-        <!-- RETURN -->
 
         <div
           class="field field-return"
           id="returnField"
         >
-
-          <label for="return-0">
-            Return
-          </label>
+          <label for="return-0">Return</label>
 
           <input
             id="return-0"
             class="date"
             type="date"
           >
-
         </div>
 
       </div>
 
-
-      <!-- FLIGHT CONTROLS -->
 
       <div class="controls">
 
@@ -284,14 +230,9 @@
               1 passenger · Economy
             </span>
 
-            <span aria-hidden="true">
-              ▾
-            </span>
-
+            <span aria-hidden="true">▾</span>
           </button>
 
-
-          <!-- PASSENGER PANEL -->
 
           <div
             class="pax-panel"
@@ -301,20 +242,16 @@
             aria-label="Passengers and cabin"
           >
 
-            <!-- ADULTS -->
-
             <div
               class="stepper-row"
               data-type="adults"
             >
-
               <div>
                 <strong>Adults</strong>
                 <small>12+ years</small>
               </div>
 
               <div class="stepper">
-
                 <button
                   type="button"
                   class="step minus"
@@ -323,9 +260,7 @@
                   −
                 </button>
 
-                <output class="step-val">
-                  1
-                </output>
+                <output class="step-val">1</output>
 
                 <button
                   type="button"
@@ -334,26 +269,20 @@
                 >
                   +
                 </button>
-
               </div>
-
             </div>
 
-
-            <!-- CHILDREN -->
 
             <div
               class="stepper-row"
               data-type="children"
             >
-
               <div>
                 <strong>Children</strong>
                 <small>2–11 years</small>
               </div>
 
               <div class="stepper">
-
                 <button
                   type="button"
                   class="step minus"
@@ -362,9 +291,7 @@
                   −
                 </button>
 
-                <output class="step-val">
-                  0
-                </output>
+                <output class="step-val">0</output>
 
                 <button
                   type="button"
@@ -373,26 +300,20 @@
                 >
                   +
                 </button>
-
               </div>
-
             </div>
 
-
-            <!-- INFANTS -->
 
             <div
               class="stepper-row"
               data-type="infants"
             >
-
               <div>
                 <strong>Infants</strong>
                 <small>Under 2, on lap</small>
               </div>
 
               <div class="stepper">
-
                 <button
                   type="button"
                   class="step minus"
@@ -401,9 +322,7 @@
                   −
                 </button>
 
-                <output class="step-val">
-                  0
-                </output>
+                <output class="step-val">0</output>
 
                 <button
                   type="button"
@@ -412,13 +331,9 @@
                 >
                   +
                 </button>
-
               </div>
-
             </div>
 
-
-            <!-- CABIN -->
 
             <div class="cabin-row">
 
@@ -476,7 +391,6 @@
 
             </div>
 
-
             <button
               type="button"
               class="pax-done"
@@ -502,7 +416,7 @@
     </form>
 
 
-    <!-- ================= HOTEL FORM ================= -->
+    <!-- HOTELS -->
 
     <form
       id="hotelForm"
@@ -514,7 +428,6 @@
       <div class="form-grid hotel-grid">
 
         <div class="field">
-
           <label for="hotel-destination">
             Destination / Hotel Name
           </label>
@@ -526,12 +439,10 @@
             placeholder="Where are you staying?"
             value="London"
           >
-
         </div>
 
 
         <div class="field">
-
           <label for="hotel-checkin">
             Check-in
           </label>
@@ -541,12 +452,10 @@
             class="date"
             type="date"
           >
-
         </div>
 
 
         <div class="field">
-
           <label for="hotel-checkout">
             Check-out
           </label>
@@ -556,52 +465,37 @@
             class="date"
             type="date"
           >
-
         </div>
 
 
         <div class="field">
-
           <label for="hotel-guests">
             Guests & Rooms
           </label>
 
           <select id="hotel-guests">
-
-            <option>
-              1 Room, 1 Guest
-            </option>
-
-            <option selected>
-              1 Room, 2 Guests
-            </option>
-
-            <option>
-              2 Rooms, 4 Guests
-            </option>
-
+            <option>1 Room, 1 Guest</option>
+            <option selected>1 Room, 2 Guests</option>
+            <option>2 Rooms, 4 Guests</option>
           </select>
-
         </div>
 
       </div>
 
 
       <div class="controls end">
-
         <button
           class="search-btn"
           type="submit"
         >
           Search hotels
         </button>
-
       </div>
 
     </form>
 
 
-    <!-- ================= CAR FORM ================= -->
+    <!-- CARS -->
 
     <form
       id="carForm"
@@ -613,7 +507,6 @@
       <div class="form-grid car-grid">
 
         <div class="field">
-
           <label for="car-pickup">
             Pick-up Location
           </label>
@@ -625,12 +518,10 @@
             placeholder="Airport or City"
             value="London Heathrow (LHR)"
           >
-
         </div>
 
 
         <div class="field">
-
           <label for="car-dropoff">
             Drop-off Location
           </label>
@@ -642,12 +533,10 @@
             placeholder="Same as pick-up"
             value="London Heathrow (LHR)"
           >
-
         </div>
 
 
         <div class="field">
-
           <label for="car-pickdate">
             Pick-up Date
           </label>
@@ -657,12 +546,10 @@
             class="date"
             type="date"
           >
-
         </div>
 
 
         <div class="field">
-
           <label for="car-dropdate">
             Drop-off Date
           </label>
@@ -672,21 +559,18 @@
             class="date"
             type="date"
           >
-
         </div>
 
       </div>
 
 
       <div class="controls end">
-
         <button
           class="search-btn"
           type="submit"
         >
           Search rental cars
         </button>
-
       </div>
 
     </form>
@@ -712,12 +596,9 @@
   ></section>
 
 
-  <!-- RECENT / POPULAR -->
+  <!-- RECENT AND POPULAR -->
 
-  <div
-    class="columns"
-    id="recent"
-  >
+  <div class="columns">
 
     <section
       class="panel recent"
@@ -725,10 +606,7 @@
     >
 
       <div class="panel-head">
-
-        <h2>
-          Recent searches
-        </h2>
+        <h2>Recent searches</h2>
 
         <button
           class="link-btn"
@@ -737,7 +615,6 @@
         >
           Clear
         </button>
-
       </div>
 
       <ul
@@ -750,7 +627,6 @@
           data-from="SFO"
           data-to="NRT"
         >
-
           <span class="ri-route">
             <b>SFO</b>
             <span>→</span>
@@ -764,7 +640,6 @@
           <span class="ri-date">
             Jul 12 – Jul 26
           </span>
-
         </li>
 
 
@@ -773,7 +648,6 @@
           data-from="MAD"
           data-to="JFK"
         >
-
           <span class="ri-route">
             <b>MAD</b>
             <span>→</span>
@@ -787,15 +661,12 @@
           <span class="ri-date">
             Aug 03 – Aug 11
           </span>
-
         </li>
 
       </ul>
 
     </section>
 
-
-    <!-- POPULAR ROUTES -->
 
     <section
       class="panel popular"
@@ -804,9 +675,7 @@
 
       <div class="panel-head">
 
-        <h2>
-          Popular routes
-        </h2>
+        <h2>Popular routes</h2>
 
         <span class="head-note">
           from
@@ -821,14 +690,12 @@
       >
 
         <li>
-
           <button
             class="route-card"
             type="button"
             data-fc="New York"
             data-tc="London"
           >
-
             <span class="rc-codes">
               <b>JFK</b>
               <span>→</span>
@@ -840,7 +707,6 @@
             </span>
 
             <span class="rc-foot">
-
               <span class="rc-pill ontime">
                 Daily
               </span>
@@ -848,23 +714,18 @@
               <span class="rc-price">
                 $489
               </span>
-
             </span>
-
           </button>
-
         </li>
 
 
         <li>
-
           <button
             class="route-card"
             type="button"
             data-fc="Los Angeles"
             data-tc="Paris"
           >
-
             <span class="rc-codes">
               <b>LAX</b>
               <span>→</span>
@@ -876,7 +737,6 @@
             </span>
 
             <span class="rc-foot">
-
               <span class="rc-pill ontime">
                 Daily
               </span>
@@ -884,23 +744,18 @@
               <span class="rc-price">
                 $612
               </span>
-
             </span>
-
           </button>
-
         </li>
 
 
         <li>
-
           <button
             class="route-card"
             type="button"
             data-fc="San Francisco"
             data-tc="Tokyo"
           >
-
             <span class="rc-codes">
               <b>SFO</b>
               <span>→</span>
@@ -912,7 +767,6 @@
             </span>
 
             <span class="rc-foot">
-
               <span class="rc-pill warn">
                 3×/wk
               </span>
@@ -920,11 +774,8 @@
               <span class="rc-price">
                 $744
               </span>
-
             </span>
-
           </button>
-
         </li>
 
       </ul>
@@ -937,17 +788,13 @@
 
 
 <footer class="footer">
-
   <div class="wrap">
-
     <p>
       &copy; 2026 Booking Air —
       Developed by
       <strong>Muhammad Faizan Amjad</strong>.
     </p>
-
   </div>
-
 </footer>
 
 

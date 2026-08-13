@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Booking Air — Your recent travel searches"
+  >
+
+  <title>My Trips — Booking Air</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">✈</span>
+
+    <span class="brand-name">
+      Booking<span>Air</span>
+    </span>
+  </div>
+
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="index.html">Book</a>
+    <a href="recent.html" class="active">My trips</a>
+    <a href="check-in.html">Check-in</a>
+    <a href="status.html">Status</a>
+  </nav>
+
+  <button
+    class="account"
+    type="button"
+  >
+    <span class="avatar">FA</span>
+
+    <span class="account-name">
+      Muhammad Faizan Amjad
+    </span>
+  </button>
+
+</header>
+
+
+<main class="wrap">
+
+  <section class="hero">
+
+    <p class="hero-kicker">
+      Your travel
+    </p>
+
+    <h1 class="hero-title">
+      My trips
+    </h1>
+
+    <p class="hero-sub">
+      View your recent searches and travel plans.
+    </p>
+
+  </section>
+
+
+  <section
+    class="panel recent"
+    aria-label="Recent trips"
+  >
+
+    <div class="panel-head">
+
+      <h2>
+        Recent searches
+      </h2>
+
+      <button
+        class="link-btn"
+        type="button"
+        id="clearRecent"
+      >
+        Clear
+      </button>
+
+    </div>
+
+
+    <ul
+      class="recent-list"
+      id="recentList"
+    >
+
+      <li
+        class="recent-item"
+        data-from="SFO"
+        data-to="NRT"
+      >
+
+        <span class="ri-route">
+          <b>SFO</b>
+          <span>→</span>
+          <b>NRT</b>
+        </span>
+
+        <span class="ri-meta">
+          San Francisco · Tokyo
+        </span>
+
+        <span class="ri-date">
+          Jul 12 – Jul 26
+        </span>
+
+      </li>
+
+
+      <li
+        class="recent-item"
+        data-from="MAD"
+        data-to="JFK"
+      >
+
+        <span class="ri-route">
+          <b>MAD</b>
+          <span>→</span>
+          <b>JFK</b>
+        </span>
+
+        <span class="ri-meta">
+          Madrid · New York
+        </span>
+
+        <span class="ri-date">
+          Aug 03 – Aug 11
+        </span>
+
+      </li>
+
+    </ul>
+
+  </section>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="wrap">
+
+    <p>
+      &copy; 2026 Booking Air —
+      Developed by
+      <strong>Muhammad Faizan Amjad</strong>.
+    </p>
+
+  </div>
+
+</footer>
+
+
+<div
+  class="toast-wrap"
+  id="toastWrap"
+  aria-live="polite"
+></div>
+
+</body>
+</html>

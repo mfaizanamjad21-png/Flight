@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Booking Air — Check flight status"
+  >
+
+  <title>Flight Status — Booking Air</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">✈</span>
+
+    <span class="brand-name">
+      Booking<span>Air</span>
+    </span>
+  </div>
+
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="index.html">Book</a>
+    <a href="recent.html">My trips</a>
+    <a href="check-in.html">Check-in</a>
+    <a href="status.html" class="active">Status</a>
+  </nav>
+
+  <button
+    class="account"
+    type="button"
+  >
+    <span class="avatar">FA</span>
+
+    <span class="account-name">
+      Muhammad Faizan Amjad
+    </span>
+  </button>
+
+</header>
+
+
+<main class="wrap">
+
+  <section class="hero">
+
+    <p class="hero-kicker">
+      Travel updates
+    </p>
+
+    <h1 class="hero-title">
+      Flight status
+    </h1>
+
+    <p class="hero-sub">
+      Check the latest status of your flight.
+    </p>
+
+  </section>
+
+
+  <section
+    class="search"
+    aria-label="Flight status search"
+  >
+
+    <form id="statusForm" novalidate>
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label for="flightNumber">
+            Flight number
+          </label>
+
+          <input
+            id="flightNumber"
+            name="flightNumber"
+            type="text"
+            placeholder="Example: BA101"
+            autocomplete="off"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="flightDate">
+            Flight date
+          </label>
+
+          <input
+            id="flightDate"
+            name="flightDate"
+            class="date"
+            type="date"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="controls end">
+
+        <button
+          class="search-btn"
+          type="submit"
+        >
+          Check status
+        </button>
+
+      </div>
+
+
+      <p
+        class="form-error"
+        id="statusError"
+        role="alert"
+        hidden
+      ></p>
+
+    </form>
+
+  </section>
+
+
+  <section
+    class="results-section"
+    id="statusResult"
+    hidden
+    aria-live="polite"
+  ></section>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="wrap">
+
+    <p>
+      &copy; 2026 Booking Air —
+      Developed by
+      <strong>Muhammad Faizan Amjad</strong>.
+    </p>
+
+  </div>
+
+</footer>
+
+
+<div
+  class="toast-wrap"
+  id="toastWrap"
+  aria-live="polite"
+></div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const form =
+      document.getElementById("statusForm");
+
+    const error =
+      document.getElementById("statusError");
+
+    const result =
+      document.getElementById("statusResult");
+
+
+    const dateInput =
+      document.getElementById("flightDate");
+
+    const today =
+      new Date();
+
+    const year =
+      today.getFullYear();
+
+    const month =
+      String(today.getMonth() + 1)
+        .padStart(2, "0");
+
+    const day =
+      String(today.getDate())
+        .padStart(2, "0");
+
+    const todayString =
+      `${year}-${month}-${day}`;
+
+    dateInput.value =
+      todayString;
+
+    dateInput.min =
+      todayString;
+
+
+    form.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+        const flightNumber =
+          document
+            .getElementById("flightNumber")
+            .value
+            .trim()
+            .toUpperCase();
+
+        const flightDate =
+          dateInput.value;
+
+
+        error.hidden = true;
+        error.textContent = "";
+
+
+        if (
+          !flightNumber ||
+          !flightDate
+        ) {
+
+          error.textContent =
+            "Please enter a flight number and flight date.";
+
+          error.hidden = false;
+
+          return;
+        }
+
+
+        result.hidden = false;
+
+        result.innerHTML = `
+          <div class="panel">
+
+            <div class="panel-head">
+              <h2>
+                Flight ${flightNumber}
+              </h2>
+            </div>
+
+            <p>
+              <strong>Status:</strong>
+              Scheduled
+            </p>
+
+            <p>
+              <strong>Date:</strong>
+              ${flightDate}
+            </p>
+
+            <p>
+              Your flight is currently scheduled.
+              Please check again closer to departure
+              for the latest updates.
+            </p>
+
+          </div>
+        `;
+
+        result.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      }
+    );
+
+  });
+</script>
+
+</body>
+</html>

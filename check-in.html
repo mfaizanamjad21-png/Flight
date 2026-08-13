@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Booking Air — Online check-in"
+  >
+
+  <title>Check-in — Booking Air</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">✈</span>
+
+    <span class="brand-name">
+      Booking<span>Air</span>
+    </span>
+  </div>
+
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="index.html">Book</a>
+    <a href="recent.html">My trips</a>
+    <a href="check-in.html" class="active">Check-in</a>
+    <a href="status.html">Status</a>
+  </nav>
+
+  <button
+    class="account"
+    type="button"
+  >
+    <span class="avatar">FA</span>
+
+    <span class="account-name">
+      Muhammad Faizan Amjad
+    </span>
+  </button>
+
+</header>
+
+
+<main class="wrap">
+
+  <section class="hero">
+
+    <p class="hero-kicker">
+      Before you fly
+    </p>
+
+    <h1 class="hero-title">
+      Online check-in
+    </h1>
+
+    <p class="hero-sub">
+      Enter your booking information to check in for your flight.
+    </p>
+
+  </section>
+
+
+  <section
+    class="search"
+    aria-label="Online check-in"
+  >
+
+    <form id="checkInForm" novalidate>
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label for="bookingReference">
+            Booking reference
+          </label>
+
+          <input
+            id="bookingReference"
+            name="bookingReference"
+            type="text"
+            placeholder="Example: BA1234"
+            autocomplete="off"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="lastName">
+            Last name
+          </label>
+
+          <input
+            id="lastName"
+            name="lastName"
+            type="text"
+            placeholder="Enter your last name"
+            autocomplete="family-name"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="controls end">
+
+        <button
+          class="search-btn"
+          type="submit"
+        >
+          Check in
+        </button>
+
+      </div>
+
+
+      <p
+        class="form-error"
+        id="checkInError"
+        role="alert"
+        hidden
+      ></p>
+
+    </form>
+
+  </section>
+
+
+  <section
+    class="panel"
+    aria-label="Check-in information"
+  >
+
+    <div class="panel-head">
+      <h2>
+        Check-in information
+      </h2>
+    </div>
+
+    <p>
+      Online check-in normally allows you to review your passenger
+      information and prepare for your flight before arriving at the airport.
+    </p>
+
+    <p>
+      Keep your booking reference and identification information available.
+    </p>
+
+  </section>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="wrap">
+
+    <p>
+      &copy; 2026 Booking Air —
+      Developed by
+      <strong>Muhammad Faizan Amjad</strong>.
+    </p>
+
+  </div>
+
+</footer>
+
+
+<div
+  class="toast-wrap"
+  id="toastWrap"
+  aria-live="polite"
+></div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const form =
+      document.getElementById("checkInForm");
+
+    const error =
+      document.getElementById("checkInError");
+
+    form.addEventListener("submit", (event) => {
+
+      event.preventDefault();
+
+      const reference =
+        document
+          .getElementById("bookingReference")
+          .value
+          .trim();
+
+      const lastName =
+        document
+          .getElementById("lastName")
+          .value
+          .trim();
+
+
+      error.hidden = true;
+      error.textContent = "";
+
+
+      if (!reference || !lastName) {
+
+        error.textContent =
+          "Please enter your booking reference and last name.";
+
+        error.hidden = false;
+
+        return;
+      }
+
+
+      alert(
+        "Check-in information accepted. Your booking is ready for check-in."
+      );
+
+    });
+
+  });
+</script>
+
+</body>
+</html>

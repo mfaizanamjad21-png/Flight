@@ -60,7 +60,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
   color: inherit;
 }
@@ -74,9 +75,14 @@ button {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
-select:focus-visible {
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid rgba(37, 99, 235, 0.25);
   outline-offset: 2px;
+}
+
+a {
+  color: inherit;
 }
 
 
@@ -102,7 +108,9 @@ select:focus-visible {
 }
 
 
-/* Brand */
+/* =========================
+   BRAND
+========================= */
 
 .brand {
   display: flex;
@@ -114,6 +122,8 @@ select:focus-visible {
 
   font-size: 1.25rem;
   font-weight: 800;
+
+  white-space: nowrap;
 }
 
 .brand-mark {
@@ -133,10 +143,14 @@ select:focus-visible {
 }
 
 
-/* Navigation */
+/* =========================
+   NAVIGATION
+========================= */
 
 .topnav {
   display: flex;
+  align-items: center;
+
   gap: 1.5rem;
 }
 
@@ -161,7 +175,9 @@ select:focus-visible {
 }
 
 
-/* Account */
+/* =========================
+   ACCOUNT
+========================= */
 
 .account {
   display: flex;
@@ -186,6 +202,8 @@ select:focus-visible {
 
   display: grid;
   place-items: center;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
@@ -367,6 +385,10 @@ main.wrap {
     minmax(150px, 0.8fr);
 }
 
+.form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .hotel-grid {
   grid-template-columns:
     2fr
@@ -413,7 +435,8 @@ main.wrap {
 
 .ap,
 .date,
-select {
+select,
+input[type="text"] {
   width: 100%;
   min-height: 43px;
 
@@ -436,13 +459,15 @@ select {
 }
 
 .date,
-select {
+select,
+input[type="text"] {
   padding: 0.65rem 0.75rem;
 }
 
 .ap:focus,
 .date:focus,
-select:focus {
+select:focus,
+input[type="text"]:focus {
   border-color: var(--primary);
 
   box-shadow:
@@ -540,9 +565,6 @@ select:focus {
   border-color: var(--primary);
 }
 
-
-/* Passenger popup */
-
 .pax-panel {
   position: absolute;
 
@@ -564,7 +586,9 @@ select:focus {
 }
 
 
-/* Stepper */
+/* =========================
+   STEPPER
+========================= */
 
 .stepper-row {
   display: flex;
@@ -671,9 +695,6 @@ select:focus {
   font-weight: 700;
 }
 
-
-/* Done button */
-
 .pax-done {
   width: 100%;
 
@@ -725,6 +746,10 @@ select:focus {
   transform: translateY(-1px);
 }
 
+.search-btn:active {
+  transform: translateY(0);
+}
+
 
 /* =========================
    FORM ERROR
@@ -773,9 +798,6 @@ select:focus {
 
   list-style: none;
 }
-
-
-/* Result card */
 
 .result-card {
   display: flex;
@@ -878,7 +900,7 @@ select:focus {
 
 
 /* =========================
-   RECENT + POPULAR COLUMNS
+   RECENT + POPULAR
 ========================= */
 
 .columns {
@@ -887,6 +909,8 @@ select:focus {
   grid-template-columns: 1fr 2fr;
 
   gap: 1.5rem;
+
+  margin-bottom: 2rem;
 }
 
 
@@ -895,6 +919,8 @@ select:focus {
 ========================= */
 
 .panel {
+  margin-bottom: 1.5rem;
+
   padding: 1.25rem;
 
   background: #fff;
@@ -905,10 +931,16 @@ select:focus {
   box-shadow: var(--shadow-sm);
 }
 
+.panel:last-child {
+  margin-bottom: 0;
+}
+
 .panel-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  gap: 1rem;
 
   margin-bottom: 1rem;
 }
@@ -1065,13 +1097,11 @@ select:focus {
 
 .rc-pill.ontime {
   background: #dcfce7;
-
   color: #15803d;
 }
 
 .rc-pill.warn {
   background: #fef9c3;
-
   color: #a16207;
 }
 
@@ -1087,6 +1117,8 @@ select:focus {
 ========================= */
 
 .footer {
+  margin-top: auto;
+
   background: #fff;
 
   border-top: 1px solid var(--border-color);
@@ -1123,6 +1155,8 @@ select:focus {
 }
 
 .toast {
+  max-width: 350px;
+
   padding: 0.75rem 1rem;
 
   border-radius: var(--radius-sm);
@@ -1198,6 +1232,7 @@ select:focus {
   }
 
   .leg,
+  .form-grid,
   .hotel-grid,
   .car-grid {
     grid-template-columns: 1fr;
@@ -1275,6 +1310,7 @@ select:focus {
 
   .service-tab {
     padding: 0.5rem 0.7rem;
+
     font-size: 0.85rem;
   }
 
@@ -1289,5 +1325,18 @@ select:focus {
     right: 0.75rem;
 
     width: auto;
+
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .toast-wrap {
+    right: 0.75rem;
+    left: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .toast {
+    max-width: none;
   }
 }
