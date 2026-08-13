@@ -1,253 +1,962 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Booking Air — Flight, Hotel and Car Search"
+  >
+
   <title>Booking Air — Flight, Hotel & Car Search</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="brand" aria-label="Booking Air">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1L15 22v-1.5L13 19v-5.5z"/></svg>
-      </span>
-      <span class="brand-name">Booking<span>Air</span></span>
+
+<header class="topbar">
+
+  <div class="brand" aria-label="Booking Air">
+    <span class="brand-mark" aria-hidden="true">✈</span>
+
+    <span class="brand-name">
+      Booking<span>Air</span>
+    </span>
+  </div>
+
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="#" class="active">Book</a>
+    <a href="#recent">My trips</a>
+    <a href="#">Check-in</a>
+    <a href="#">Status</a>
+  </nav>
+
+  <button
+    class="account"
+    type="button"
+    aria-label="Account menu"
+  >
+    <span class="avatar" aria-hidden="true">FA</span>
+    <span class="account-name">
+      Muhammad Faizan Amjad
+    </span>
+  </button>
+
+</header>
+
+
+<main class="wrap">
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <p class="hero-kicker">
+      Where to next?
+    </p>
+
+    <h1 class="hero-title">
+      Find your trip
+    </h1>
+
+    <p class="hero-sub">
+      Search flights, hotels, and car rentals across 240+ destinations.
+    </p>
+
+  </section>
+
+
+  <!-- SEARCH -->
+
+  <section class="search" aria-label="Travel search">
+
+    <!-- SERVICE TABS -->
+
+    <div
+      class="service-tabs"
+      role="tablist"
+      aria-label="Service type"
+    >
+
+      <button
+        class="service-tab active"
+        type="button"
+        data-service="flights"
+        role="tab"
+        aria-selected="true"
+      >
+        ✈️ Flights
+      </button>
+
+      <button
+        class="service-tab"
+        type="button"
+        data-service="hotels"
+        role="tab"
+        aria-selected="false"
+      >
+        🏨 Hotels
+      </button>
+
+      <button
+        class="service-tab"
+        type="button"
+        data-service="cars"
+        role="tab"
+        aria-selected="false"
+      >
+        🚗 Car Rentals
+      </button>
+
     </div>
-    <nav class="topnav" aria-label="Main">
-      <a href="#" class="active">Book</a>
-      <a href="#">My trips</a>
-      <a href="#">Check-in</a>
-      <a href="#">Status</a>
-    </nav>
-    <button class="account" type="button" aria-label="Account menu">
-      <span class="avatar" aria-hidden="true">FA</span>
-      <span class="account-name">Muhammad Faizan Amjad</span>
-    </button>
-  </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <p class="hero-kicker">Where to next?</p>
-      <h1 class="hero-title">Find your trip</h1>
-      <p class="hero-sub">Search flights, hotels, and car rentals across 240+ destinations.</p>
-    </section>
 
-    <section class="search" aria-label="Travel search">
-      <!-- Service Type Selector Tabs -->
-      <div class="service-tabs" role="tablist" aria-label="Service type" style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">
-        <button class="service-tab active" type="button" data-service="flights" style="padding: 0.5rem 1rem; border: none; background: var(--primary); color: #fff; border-radius: var(--radius-sm); font-weight: 600; cursor: pointer;">✈️ Flights</button>
-        <button class="service-tab" type="button" data-service="hotels" style="padding: 0.5rem 1rem; border: none; background: transparent; color: var(--text-main); border-radius: var(--radius-sm); font-weight: 600; cursor: pointer;">🏨 Hotels</button>
-        <button class="service-tab" type="button" data-service="cars" style="padding: 0.5rem 1rem; border: none; background: transparent; color: var(--text-main); border-radius: var(--radius-sm); font-weight: 600; cursor: pointer;">🚗 Car Rentals</button>
+    <!-- ================= FLIGHT FORM ================= -->
+
+    <form
+      id="flightForm"
+      class="search-form"
+      novalidate
+    >
+
+      <div
+        class="trip-tabs"
+        role="tablist"
+        aria-label="Trip type"
+      >
+
+        <button
+          class="trip-tab active"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          data-trip="round"
+        >
+          Round trip
+        </button>
+
+        <button
+          class="trip-tab"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-trip="oneway"
+        >
+          One way
+        </button>
+
       </div>
 
-      <!-- Flight Form -->
-      <form id="flightForm" class="search-form" novalidate>
-        <div class="trip-tabs" role="tablist" aria-label="Trip type" style="margin-bottom: 1rem;">
-          <button class="trip-tab active" role="tab" aria-selected="true" type="button">Round trip</button>
-          <button class="trip-tab" role="tab" aria-selected="false" type="button">One way</button>
-        </div>
 
-        <div class="legs" id="legs">
-          <div class="leg" data-leg="0">
-            <div class="field field-from">
-              <label for="from-0">From</label>
-              <div class="airport-input">
-                <input id="from-0" class="ap" type="text" autocomplete="off" placeholder="City or airport" value="New York" />
-                <span class="ap-code">JFK</span>
-              </div>
-            </div>
+      <div class="leg">
 
-            <button class="swap" type="button" aria-label="Swap origin and destination" id="swapBtn">⇆</button>
+        <!-- FROM -->
 
-            <div class="field field-to">
-              <label for="to-0">To</label>
-              <div class="airport-input">
-                <input id="to-0" class="ap" type="text" autocomplete="off" placeholder="City or airport" value="London" />
-                <span class="ap-code">LHR</span>
-              </div>
-            </div>
+        <div class="field">
 
-            <div class="field field-depart">
-              <label for="depart-0">Depart</label>
-              <input id="depart-0" class="date depart" type="date" />
-            </div>
+          <label for="from-0">
+            From
+          </label>
 
-            <div class="field field-return">
-              <label for="return-0">Return</label>
-              <input id="return-0" class="date return" type="date" />
-            </div>
+          <div class="airport-input">
+
+            <input
+              id="from-0"
+              class="ap"
+              type="text"
+              autocomplete="off"
+              placeholder="City or airport"
+              value="New York"
+            >
+
+            <span class="ap-code">
+              JFK
+            </span>
+
           </div>
+
         </div>
 
-        <div class="controls" style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-          <div class="pax-wrap">
-            <button class="pax-trigger" type="button" id="paxTrigger" aria-haspopup="true" aria-expanded="false">
-              <span class="pax-label" id="paxLabel">1 passenger · Economy</span>
-              <span class="chev" aria-hidden="true">▾</span>
+
+        <!-- SWAP -->
+
+        <button
+          class="swap"
+          type="button"
+          id="swapBtn"
+          aria-label="Swap origin and destination"
+        >
+          ⇆
+        </button>
+
+
+        <!-- TO -->
+
+        <div class="field">
+
+          <label for="to-0">
+            To
+          </label>
+
+          <div class="airport-input">
+
+            <input
+              id="to-0"
+              class="ap"
+              type="text"
+              autocomplete="off"
+              placeholder="City or airport"
+              value="London"
+            >
+
+            <span class="ap-code">
+              LHR
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- DEPART -->
+
+        <div class="field">
+
+          <label for="depart-0">
+            Depart
+          </label>
+
+          <input
+            id="depart-0"
+            class="date"
+            type="date"
+          >
+
+        </div>
+
+
+        <!-- RETURN -->
+
+        <div
+          class="field field-return"
+          id="returnField"
+        >
+
+          <label for="return-0">
+            Return
+          </label>
+
+          <input
+            id="return-0"
+            class="date"
+            type="date"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- FLIGHT CONTROLS -->
+
+      <div class="controls">
+
+        <div class="pax-wrap">
+
+          <button
+            class="pax-trigger"
+            type="button"
+            id="paxTrigger"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            <span id="paxLabel">
+              1 passenger · Economy
+            </span>
+
+            <span aria-hidden="true">
+              ▾
+            </span>
+
+          </button>
+
+
+          <!-- PASSENGER PANEL -->
+
+          <div
+            class="pax-panel"
+            id="paxPanel"
+            hidden
+            role="dialog"
+            aria-label="Passengers and cabin"
+          >
+
+            <!-- ADULTS -->
+
+            <div
+              class="stepper-row"
+              data-type="adults"
+            >
+
+              <div>
+                <strong>Adults</strong>
+                <small>12+ years</small>
+              </div>
+
+              <div class="stepper">
+
+                <button
+                  type="button"
+                  class="step minus"
+                  aria-label="Fewer adults"
+                >
+                  −
+                </button>
+
+                <output class="step-val">
+                  1
+                </output>
+
+                <button
+                  type="button"
+                  class="step plus"
+                  aria-label="More adults"
+                >
+                  +
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- CHILDREN -->
+
+            <div
+              class="stepper-row"
+              data-type="children"
+            >
+
+              <div>
+                <strong>Children</strong>
+                <small>2–11 years</small>
+              </div>
+
+              <div class="stepper">
+
+                <button
+                  type="button"
+                  class="step minus"
+                  aria-label="Fewer children"
+                >
+                  −
+                </button>
+
+                <output class="step-val">
+                  0
+                </output>
+
+                <button
+                  type="button"
+                  class="step plus"
+                  aria-label="More children"
+                >
+                  +
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- INFANTS -->
+
+            <div
+              class="stepper-row"
+              data-type="infants"
+            >
+
+              <div>
+                <strong>Infants</strong>
+                <small>Under 2, on lap</small>
+              </div>
+
+              <div class="stepper">
+
+                <button
+                  type="button"
+                  class="step minus"
+                  aria-label="Fewer infants"
+                >
+                  −
+                </button>
+
+                <output class="step-val">
+                  0
+                </output>
+
+                <button
+                  type="button"
+                  class="step plus"
+                  aria-label="More infants"
+                >
+                  +
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- CABIN -->
+
+            <div class="cabin-row">
+
+              <span class="cabin-label">
+                Cabin
+              </span>
+
+              <div
+                class="cabin-seg"
+                role="radiogroup"
+                aria-label="Cabin class"
+              >
+
+                <button
+                  type="button"
+                  class="cabin active"
+                  data-cabin="Economy"
+                  role="radio"
+                  aria-checked="true"
+                >
+                  Economy
+                </button>
+
+                <button
+                  type="button"
+                  class="cabin"
+                  data-cabin="Premium"
+                  role="radio"
+                  aria-checked="false"
+                >
+                  Premium
+                </button>
+
+                <button
+                  type="button"
+                  class="cabin"
+                  data-cabin="Business"
+                  role="radio"
+                  aria-checked="false"
+                >
+                  Business
+                </button>
+
+                <button
+                  type="button"
+                  class="cabin"
+                  data-cabin="First"
+                  role="radio"
+                  aria-checked="false"
+                >
+                  First
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="pax-done"
+              id="paxDone"
+            >
+              Done
             </button>
 
-            <div class="pax-panel" id="paxPanel" hidden role="dialog" aria-label="Passengers and cabin">
-              <div class="stepper-row" data-type="adults">
-                <div><strong>Adults</strong><small>12+ years</small></div>
-                <div class="stepper">
-                  <button type="button" class="step minus" aria-label="Fewer adults">−</button>
-                  <output class="step-val">1</output>
-                  <button type="button" class="step plus" aria-label="More adults">+</button>
-                </div>
-              </div>
-              <div class="stepper-row" data-type="children">
-                <div><strong>Children</strong><small>2–11 years</small></div>
-                <div class="stepper">
-                  <button type="button" class="step minus" aria-label="Fewer children">−</button>
-                  <output class="step-val">0</output>
-                  <button type="button" class="step plus" aria-label="More children">+</button>
-                </div>
-              </div>
-              <div class="stepper-row" data-type="infants">
-                <div><strong>Infants</strong><small>Under 2, on lap</small></div>
-                <div class="stepper">
-                  <button type="button" class="step minus" aria-label="Fewer infants">−</button>
-                  <output class="step-val">0</output>
-                  <button type="button" class="step plus" aria-label="More infants">+</button>
-                </div>
-              </div>
-              <div class="cabin-row">
-                <span class="cabin-label">Cabin</span>
-                <div class="cabin-seg" role="radiogroup" aria-label="Cabin class">
-                  <button type="button" class="cabin active" data-cabin="Economy" role="radio" aria-checked="true">Economy</button>
-                  <button type="button" class="cabin" data-cabin="Premium" role="radio" aria-checked="false">Premium</button>
-                  <button type="button" class="cabin" data-cabin="Business" role="radio" aria-checked="false">Business</button>
-                  <button type="button" class="cabin" data-cabin="First" role="radio" aria-checked="false">First</button>
-                </div>
-              </div>
-              <button type="button" class="pax-done" id="paxDone">Done</button>
-            </div>
           </div>
 
-          <button class="search-btn" type="submit">Search flights</button>
         </div>
-      </form>
 
-      <!-- Hotel Form -->
-      <form id="hotelForm" class="search-form" hidden novalidate>
-        <div class="legs" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0.75rem;">
-          <div class="field">
-            <label for="hotel-destination">Destination / Hotel Name</label>
-            <input id="hotel-destination" class="ap" type="text" placeholder="Where are you staying?" value="London" />
-          </div>
-          <div class="field">
-            <label for="hotel-checkin">Check-in</label>
-            <input id="hotel-checkin" class="date" type="date" />
-          </div>
-          <div class="field">
-            <label for="hotel-checkout">Check-out</label>
-            <input id="hotel-checkout" class="date" type="date" />
-          </div>
-          <div class="field">
-            <label for="hotel-guests">Guests & Rooms</label>
-            <select id="hotel-guests" style="padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); width: 100%;">
-              <option>1 Room, 1 Guest</option>
-              <option selected>1 Room, 2 Guests</option>
-              <option>2 Rooms, 4 Guests</option>
-            </select>
-          </div>
-        </div>
-        <div class="controls" style="margin-top: 1rem; text-align: right;">
-          <button class="search-btn" type="submit">Search hotels</button>
-        </div>
-      </form>
 
-      <!-- Car Rental Form -->
-      <form id="carForm" class="search-form" hidden novalidate>
-        <div class="legs" style="display: grid; grid-template-columns: 1.5fr 1.5fr 1fr 1fr; gap: 0.75rem;">
-          <div class="field">
-            <label for="car-pickup">Pick-up Location</label>
-            <input id="car-pickup" class="ap" type="text" placeholder="Airport or City" value="London Heathrow (LHR)" />
-          </div>
-          <div class="field">
-            <label for="car-dropoff">Drop-off Location</label>
-            <input id="car-dropoff" class="ap" type="text" placeholder="Same as pick-up" value="London Heathrow (LHR)" />
-          </div>
-          <div class="field">
-            <label for="car-pickdate">Pick-up Date</label>
-            <input id="car-pickdate" class="date" type="date" />
-          </div>
-          <div class="field">
-            <label for="car-dropdate">Drop-off Date</label>
-            <input id="car-dropdate" class="date" type="date" />
-          </div>
-        </div>
-        <div class="controls" style="margin-top: 1rem; text-align: right;">
-          <button class="search-btn" type="submit">Search rental cars</button>
-        </div>
-      </form>
+        <button
+          class="search-btn"
+          type="submit"
+        >
+          Search flights
+        </button>
 
-      <p class="form-error" id="formError" role="alert" hidden></p>
+      </div>
+
+    </form>
+
+
+    <!-- ================= HOTEL FORM ================= -->
+
+    <form
+      id="hotelForm"
+      class="search-form"
+      hidden
+      novalidate
+    >
+
+      <div class="form-grid hotel-grid">
+
+        <div class="field">
+
+          <label for="hotel-destination">
+            Destination / Hotel Name
+          </label>
+
+          <input
+            id="hotel-destination"
+            class="ap simple-input"
+            type="text"
+            placeholder="Where are you staying?"
+            value="London"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="hotel-checkin">
+            Check-in
+          </label>
+
+          <input
+            id="hotel-checkin"
+            class="date"
+            type="date"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="hotel-checkout">
+            Check-out
+          </label>
+
+          <input
+            id="hotel-checkout"
+            class="date"
+            type="date"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="hotel-guests">
+            Guests & Rooms
+          </label>
+
+          <select id="hotel-guests">
+
+            <option>
+              1 Room, 1 Guest
+            </option>
+
+            <option selected>
+              1 Room, 2 Guests
+            </option>
+
+            <option>
+              2 Rooms, 4 Guests
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="controls end">
+
+        <button
+          class="search-btn"
+          type="submit"
+        >
+          Search hotels
+        </button>
+
+      </div>
+
+    </form>
+
+
+    <!-- ================= CAR FORM ================= -->
+
+    <form
+      id="carForm"
+      class="search-form"
+      hidden
+      novalidate
+    >
+
+      <div class="form-grid car-grid">
+
+        <div class="field">
+
+          <label for="car-pickup">
+            Pick-up Location
+          </label>
+
+          <input
+            id="car-pickup"
+            class="ap simple-input"
+            type="text"
+            placeholder="Airport or City"
+            value="London Heathrow (LHR)"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="car-dropoff">
+            Drop-off Location
+          </label>
+
+          <input
+            id="car-dropoff"
+            class="ap simple-input"
+            type="text"
+            placeholder="Same as pick-up"
+            value="London Heathrow (LHR)"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="car-pickdate">
+            Pick-up Date
+          </label>
+
+          <input
+            id="car-pickdate"
+            class="date"
+            type="date"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="car-dropdate">
+            Drop-off Date
+          </label>
+
+          <input
+            id="car-dropdate"
+            class="date"
+            type="date"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="controls end">
+
+        <button
+          class="search-btn"
+          type="submit"
+        >
+          Search rental cars
+        </button>
+
+      </div>
+
+    </form>
+
+
+    <p
+      class="form-error"
+      id="formError"
+      role="alert"
+      hidden
+    ></p>
+
+  </section>
+
+
+  <!-- RESULTS -->
+
+  <section
+    class="results-section"
+    id="resultsSection"
+    hidden
+    aria-live="polite"
+  ></section>
+
+
+  <!-- RECENT / POPULAR -->
+
+  <div
+    class="columns"
+    id="recent"
+  >
+
+    <section
+      class="panel recent"
+      aria-label="Recent searches"
+    >
+
+      <div class="panel-head">
+
+        <h2>
+          Recent searches
+        </h2>
+
+        <button
+          class="link-btn"
+          type="button"
+          id="clearRecent"
+        >
+          Clear
+        </button>
+
+      </div>
+
+      <ul
+        class="recent-list"
+        id="recentList"
+      >
+
+        <li
+          class="recent-item"
+          data-from="SFO"
+          data-to="NRT"
+        >
+
+          <span class="ri-route">
+            <b>SFO</b>
+            <span>→</span>
+            <b>NRT</b>
+          </span>
+
+          <span class="ri-meta">
+            San Francisco · Tokyo
+          </span>
+
+          <span class="ri-date">
+            Jul 12 – Jul 26
+          </span>
+
+        </li>
+
+
+        <li
+          class="recent-item"
+          data-from="MAD"
+          data-to="JFK"
+        >
+
+          <span class="ri-route">
+            <b>MAD</b>
+            <span>→</span>
+            <b>JFK</b>
+          </span>
+
+          <span class="ri-meta">
+            Madrid · New York
+          </span>
+
+          <span class="ri-date">
+            Aug 03 – Aug 11
+          </span>
+
+        </li>
+
+      </ul>
+
     </section>
 
-    <div class="columns">
-      <section class="panel recent" aria-label="Recent searches">
-        <div class="panel-head">
-          <h2>Recent searches</h2>
-          <button class="link-btn" type="button" id="clearRecent">Clear</button>
-        </div>
-        <ul class="recent-list" id="recentList">
-          <li class="recent-item" data-from="SFO" data-to="NRT">
-            <span class="ri-route"><b>SFO</b><span class="arrow" aria-hidden="true">→</span><b>NRT</b></span>
-            <span class="ri-meta">San Francisco · Tokyo</span>
-            <span class="ri-date">Jul 12 – Jul 26</span>
-          </li>
-          <li class="recent-item" data-from="MAD" data-to="JFK">
-            <span class="ri-route"><b>MAD</b><span class="arrow" aria-hidden="true">→</span><b>JFK</b></span>
-            <span class="ri-meta">Madrid · New York</span>
-            <span class="ri-date">Aug 03 – Aug 11</span>
-          </li>
-        </ul>
-      </section>
 
-      <section class="panel popular" aria-label="Popular routes">
-        <div class="panel-head">
-          <h2>Popular routes</h2>
-          <span class="head-note">from</span>
-        </div>
-        <ul class="route-grid" id="routeGrid">
-          <li>
-            <button class="route-card" type="button" data-fc="New York" data-tc="London">
-              <span class="rc-codes"><b>JFK</b><span class="arrow" aria-hidden="true">→</span><b>LHR</b></span>
-              <span class="rc-cities">New York → London</span>
-              <span class="rc-foot"><span class="rc-pill ontime">Daily</span><span class="rc-price">$489</span></span>
-            </button>
-          </li>
-          <li>
-            <button class="route-card" type="button" data-fc="Los Angeles" data-tc="Paris">
-              <span class="rc-codes"><b>LAX</b><span class="arrow" aria-hidden="true">→</span><b>CDG</b></span>
-              <span class="rc-cities">Los Angeles → Paris</span>
-              <span class="rc-foot"><span class="rc-pill ontime">Daily</span><span class="rc-price">$612</span></span>
-            </button>
-          </li>
-          <li>
-            <button class="route-card" type="button" data-fc="San Francisco" data-tc="Tokyo">
-              <span class="rc-codes"><b>SFO</b><span class="arrow" aria-hidden="true">→</span><b>HND</b></span>
-              <span class="rc-cities">San Francisco → Tokyo</span>
-              <span class="rc-foot"><span class="rc-pill warn">3×/wk</span><span class="rc-price">$744</span></span>
-            </button>
-          </li>
-        </ul>
-      </section>
-    </div>
-  </main>
+    <!-- POPULAR ROUTES -->
 
-  <footer class="footer">
-    <div class="wrap">
-      <p>&copy; 2026 Booking Air —Developed by <strong>Muhammad Faizan Amjad</strong>.</p>
-    </div>
-  </footer>
+    <section
+      class="panel popular"
+      aria-label="Popular routes"
+    >
 
-  <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+      <div class="panel-head">
+
+        <h2>
+          Popular routes
+        </h2>
+
+        <span class="head-note">
+          from
+        </span>
+
+      </div>
+
+
+      <ul
+        class="route-grid"
+        id="routeGrid"
+      >
+
+        <li>
+
+          <button
+            class="route-card"
+            type="button"
+            data-fc="New York"
+            data-tc="London"
+          >
+
+            <span class="rc-codes">
+              <b>JFK</b>
+              <span>→</span>
+              <b>LHR</b>
+            </span>
+
+            <span class="rc-cities">
+              New York → London
+            </span>
+
+            <span class="rc-foot">
+
+              <span class="rc-pill ontime">
+                Daily
+              </span>
+
+              <span class="rc-price">
+                $489
+              </span>
+
+            </span>
+
+          </button>
+
+        </li>
+
+
+        <li>
+
+          <button
+            class="route-card"
+            type="button"
+            data-fc="Los Angeles"
+            data-tc="Paris"
+          >
+
+            <span class="rc-codes">
+              <b>LAX</b>
+              <span>→</span>
+              <b>CDG</b>
+            </span>
+
+            <span class="rc-cities">
+              Los Angeles → Paris
+            </span>
+
+            <span class="rc-foot">
+
+              <span class="rc-pill ontime">
+                Daily
+              </span>
+
+              <span class="rc-price">
+                $612
+              </span>
+
+            </span>
+
+          </button>
+
+        </li>
+
+
+        <li>
+
+          <button
+            class="route-card"
+            type="button"
+            data-fc="San Francisco"
+            data-tc="Tokyo"
+          >
+
+            <span class="rc-codes">
+              <b>SFO</b>
+              <span>→</span>
+              <b>HND</b>
+            </span>
+
+            <span class="rc-cities">
+              San Francisco → Tokyo
+            </span>
+
+            <span class="rc-foot">
+
+              <span class="rc-pill warn">
+                3×/wk
+              </span>
+
+              <span class="rc-price">
+                $744
+              </span>
+
+            </span>
+
+          </button>
+
+        </li>
+
+      </ul>
+
+    </section>
+
+  </div>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="wrap">
+
+    <p>
+      &copy; 2026 Booking Air —
+      Developed by
+      <strong>Muhammad Faizan Amjad</strong>.
+    </p>
+
+  </div>
+
+</footer>
+
+
+<div
+  class="toast-wrap"
+  id="toastWrap"
+  aria-live="polite"
+  aria-atomic="true"
+></div>
+
 </body>
 </html>
