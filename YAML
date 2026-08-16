@@ -1,0 +1,84 @@
+openapi: 3.0.0
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/faizan-a1c/Filght/1.0.0
+info:
+  description: Flight Search API for Booking Air
+  version: "1.0.0"
+  title: Flight Search API
+paths:
+  /flights:
+    get:
+      summary: Search available flights
+      operationId: searchFlights
+      parameters:
+        - in: query
+          name: origin
+          schema:
+            type: string
+        - in: query
+          name: destination
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Standard flight list response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightItem'
+              examples:
+                defaultFlights:
+                  summary: Mock Flight Data
+                  value:
+                    - id: "fl-101"
+                      airline: "Booking Air"
+                      flightNumber: "BA-402"
+                      origin: "JFK"
+                      destination: "LHR"
+                      departTime: "08:30 AM"
+                      arriveTime: "08:45 PM"
+                      durationHours: 7
+                      duration: "7h 15m"
+                      price: 450
+                      stops: "Nonstop"
+                    - id: "fl-102"
+                      airline: "SkyWays"
+                      flightNumber: "SW-178"
+                      origin: "JFK"
+                      destination: "LHR"
+                      departTime: "11:00 AM"
+                      arriveTime: "11:15 PM"
+                      durationHours: 7
+                      duration: "7h 15m"
+                      price: 520
+                      stops: "1 Stop"
+components:
+  schemas:
+    FlightItem:
+      type: object
+      properties:
+        id:
+          type: string
+        airline:
+          type: string
+        flightNumber:
+          type: string
+        origin:
+          type: string
+        destination:
+          type: string
+        departTime:
+          type: string
+        arriveTime:
+          type: string
+        durationHours:
+          type: integer
+        duration:
+          type: string
+        price:
+          type: number
+        stops:
+          type: string

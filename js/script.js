@@ -1,5 +1,5 @@
 /* =========================================================
-   BOOKING AIR - JavaScript (SwaggerHub Integration)
+   BOOKING AIR - JavaScript (SwaggerHub Flight API Integration)
    File Location: js/script.js
    ========================================================= */
 
@@ -34,10 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const formError = document.getElementById("formError");
   const resultsSection = document.getElementById("resultsSection");
-
-  const clearRecent = document.getElementById("clearRecent");
-  const recentList = document.getElementById("recentList");
-  const routeCards = document.querySelectorAll(".route-card");
   const toastWrap = document.getElementById("toastWrap");
 
 
@@ -58,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     AIRPORT CODES
+     AIRPORT CODES & HELPERS
      ======================================================= */
 
   const airportCodes = {
@@ -137,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     SERVICE & TRIP TABS
+     SERVICE & TRIP CONTROLS
      ======================================================= */
 
   serviceTabs.forEach(tab => {
@@ -195,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     PASSENGER & CABIN SELECTION
+     PASSENGERS & CABIN
      ======================================================= */
 
   function updatePassengerLabel() {
@@ -261,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     ERROR & DATE VALIDATION
+     VALIDATION & ERRORS
      ======================================================= */
 
   function showError(message) {
@@ -299,12 +295,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     SWAGGERHUB MOCK API SERVICE
+     SWAGGERHUB MOCK API CALL (/flights)
      ======================================================= */
 
   async function fetchLiveFlights(originCode, destinationCode) {
-    // Calls the exact /inventory endpoint specified in your SwaggerHub schema
-    const endpoint = `https://virtserver.swaggerhub.com/faizan-a1c/Filght/1.0.0/inventory?searchString=${encodeURIComponent(originCode)}`;
+    // Queries the native /flights endpoint on SwaggerHub
+    const endpoint = `https://virtserver.swaggerhub.com/faizan-a1c/Filght/1.0.0/flights?origin=${encodeURIComponent(originCode)}&destination=${encodeURIComponent(destinationCode)}`;
 
     const response = await fetch(endpoint, {
       method: "GET",
@@ -314,35 +310,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (response.status === 429) {
-      throw new Error("SwaggerHub rate limit reached (10 requests/min). Please wait 1 minute before searching again.");
+      throw new Error("SwaggerHub rate limit reached (10 requests/min). Please wait 1 minute before trying again.");
     }
 
     if (!response.ok) {
-      throw new Error(`SwaggerHub API HTTP Error: Status ${response.status}`);
+      throw new Error(`SwaggerHub API Error: Status ${response.status}`);
     }
 
     const rawData = await response.json();
     const results = Array.isArray(rawData) ? rawData : [rawData];
 
-    // Maps mock InventoryItem fields into display flight cards
-    return results.map((item, index) => ({
-      id: item.id || `fl-${index + 1}`,
-      airline: item.manufacturer?.name || "ACME Airlines",
-      flightNumber: item.name ? `AC-${item.name.replace(/[^0-9]/g, "") || "101"}` : `BA-${100 + index * 12}`,
+    // Uses native flight schema properties returned directly from SwaggerHub
+    return results.map(item => ({
+      id: item.id || "fl-default",
+      airline: item.airline || "Booking Air",
+      flightNumber: item.flightNumber || "BA-100",
       origin: originCode,
       destination: destinationCode,
-      departTime: `${8 + index}:15 AM`,
-      arriveTime: `${4 + index}:30 PM`,
-      durationHours: 8,
-      duration: "8h 15m",
-      price: 320 + index * 45,
-      stops: index % 2 === 0 ? "Nonstop" : "1 Stop"
+      departTime: item.departTime || "08:30 AM",
+      arriveTime: item.arriveTime || "08:45 PM",
+      durationHours: item.durationHours || 7,
+      duration: item.duration || "7h 15m",
+      price: item.price || 450,
+      stops: item.stops || "Nonstop"
     }));
   }
 
 
   /* =======================================================
-     RENDER RESULTS & FILTERING
+     RENDER RESULTS & FILTERS
      ======================================================= */
 
   function applyFlightFilters(flights, sortBy = "price-asc", stopsFilter = "all") {
@@ -454,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     FORM SUBMISSIONS
+     FORM SUBMIT EVENT
      ======================================================= */
 
   if (flightForm) {
@@ -486,7 +482,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const fromCode = getAirportCode(from);
       const toCode = getAirportCode(to);
 
-      showToast(`Fetching SwaggerHub mock data for ${fromCode} → ${toCode}...`);
+      showToast(`Fetching flight data for ${fromCode} → ${toCode}...`);
 
       try {
         fetchedFlights = await fetchLiveFlights(fromCode, toCode);
@@ -502,14 +498,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       } catch (err) {
         console.error("SwaggerHub Fetch Error:", err);
-        showError(err.message || "Failed to fetch data from SwaggerHub mock server.");
+        showError(err.message || "Failed to fetch flight data from SwaggerHub.");
       }
     });
   }
 
 
   /* =======================================================
-     HELPERS & UTILITIES
+     UTILITY FUNCTIONS
      ======================================================= */
 
   function showToast(message) {
