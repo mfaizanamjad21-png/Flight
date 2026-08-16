@@ -1,5 +1,6 @@
 /* =========================================================
-   BOOKING AIR - Complete Main JavaScript with API & Filters
+   BOOKING AIR - JavaScript (SwaggerHub Integration)
+   File Location: js/script.js
    ========================================================= */
 
 "use strict";
@@ -7,7 +8,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =======================================================
-     ELEMENTS
+     DOM ELEMENTS
      ======================================================= */
 
   const serviceTabs = document.querySelectorAll(".service-tab");
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentService = "flights";
   let currentTrip = "round";
   let currentCabin = "Economy";
-  let fetchedFlights = []; // API cache for dynamic client-side filtering
+  let fetchedFlights = [];
 
   let passengers = {
     adults: 1,
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     AIRPORT DATA
+     AIRPORT CODES
      ======================================================= */
 
   const airportCodes = {
@@ -70,59 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "Madrid": "MAD",
     "Dubai": "DXB",
     "Chicago": "ORD",
-    "Toronto": "YYZ",
-    "Singapore": "SIN",
-    "Sydney": "SYD",
-    "Frankfurt": "FRA",
-    "Amsterdam": "AMS",
-    "Rome": "FCO",
-    "Miami": "MIA",
-    "Boston": "BOS",
-    "Dallas": "DFW",
-    "Seattle": "SEA",
-    "Istanbul": "IST"
+    "Toronto": "YYZ"
   };
-
-
-  /* =======================================================
-     DEFAULT DATES
-     ======================================================= */
-
-  function formatDateForInput(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
-
-  function setDefaultDates() {
-    const today = new Date();
-    const depart = new Date(today);
-    depart.setDate(today.getDate() + 14);
-
-    const returnDate = new Date(today);
-    returnDate.setDate(today.getDate() + 21);
-
-    if (departInput && !departInput.value) departInput.value = formatDateForInput(depart);
-    if (returnInput && !returnInput.value) returnInput.value = formatDateForInput(returnDate);
-
-    const hotelCheckin = document.getElementById("hotel-checkin");
-    const hotelCheckout = document.getElementById("hotel-checkout");
-    if (hotelCheckin && !hotelCheckin.value) hotelCheckin.value = formatDateForInput(depart);
-    if (hotelCheckout && !hotelCheckout.value) hotelCheckout.value = formatDateForInput(returnDate);
-
-    const carPickdate = document.getElementById("car-pickdate");
-    const carDropdate = document.getElementById("car-dropdate");
-    if (carPickdate && !carPickdate.value) carPickdate.value = formatDateForInput(depart);
-    if (carDropdate && !carDropdate.value) carDropdate.value = formatDateForInput(returnDate);
-  }
-
-  setDefaultDates();
-
-
-  /* =======================================================
-     AIRPORT CODE UPDATES
-     ======================================================= */
 
   function getAirportCode(city) {
     const cleanCity = (city || "").trim();
@@ -161,7 +111,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     SERVICE TABS
+     DEFAULT DATES
+     ======================================================= */
+
+  function formatDateForInput(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  function setDefaultDates() {
+    const today = new Date();
+    const depart = new Date(today);
+    depart.setDate(today.getDate() + 14);
+
+    const returnDate = new Date(today);
+    returnDate.setDate(today.getDate() + 21);
+
+    if (departInput && !departInput.value) departInput.value = formatDateForInput(depart);
+    if (returnInput && !returnInput.value) returnInput.value = formatDateForInput(returnDate);
+  }
+
+  setDefaultDates();
+
+
+  /* =======================================================
+     SERVICE & TRIP TABS
      ======================================================= */
 
   serviceTabs.forEach(tab => {
@@ -187,11 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-
-  /* =======================================================
-     TRIP TYPE
-     ======================================================= */
-
   tripTabs.forEach(tab => {
     tab.addEventListener("click", () => {
       currentTrip = tab.dataset.trip;
@@ -206,11 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (returnInput) returnInput.required = currentTrip === "round";
     });
   });
-
-
-  /* =======================================================
-     SWAP AIRPORTS
-     ======================================================= */
 
   if (swapBtn) {
     swapBtn.addEventListener("click", () => {
@@ -229,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     PASSENGER PANEL & STEPPERS
+     PASSENGER & CABIN SELECTION
      ======================================================= */
 
   function updatePassengerLabel() {
@@ -281,11 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-
-  /* =======================================================
-     CABIN SELECTION
-     ======================================================= */
-
   cabinButtons.forEach(button => {
     button.addEventListener("click", () => {
       currentCabin = button.dataset.cabin;
@@ -300,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     ERROR HANDLING & DATE VALIDATION
+     ERROR & DATE VALIDATION
      ======================================================= */
 
   function showError(message) {
@@ -338,67 +299,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     API SERVICE (Fetching Live Flight Data)
+     SWAGGERHUB MOCK API SERVICE
      ======================================================= */
 
   async function fetchLiveFlights(originCode, destinationCode) {
-    const endpoint = `https://opensky-network.org/api/states/all`;
+    // Calls the exact /inventory endpoint specified in your SwaggerHub schema
+    const endpoint = `https://virtserver.swaggerhub.com/faizan-a1c/Filght/1.0.0/inventory?searchString=${encodeURIComponent(originCode)}`;
 
-    try {
-      const response = await fetch(endpoint);
-      if (!response.ok) throw new Error(`API status: ${response.status}`);
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      }
+    });
 
-      const data = await response.json();
-      const rawStates = data.states || [];
-
-      // Maps real-time API state vectors into flight card models
-      return rawStates.slice(0, 12).map((state, index) => {
-        const callsign = state[1] ? state[1].trim() : `FL-${100 + index}`;
-        const country = state[2] || "International";
-
-        return {
-          id: state[0],
-          airline: country,
-          flightNumber: callsign,
-          origin: originCode,
-          destination: destinationCode,
-          departTime: `${8 + (index % 12)}:${index % 2 === 0 ? "15" : "45"} ${index >= 4 ? "PM" : "AM"}`,
-          arriveTime: `${10 + (index % 12)}:30 PM`,
-          durationHours: 6 + (index % 3),
-          duration: `${6 + (index % 3)}h 20m`,
-          price: 250 + (index * 45) % 350,
-          stops: index % 3 === 0 ? "1 Stop" : "Nonstop"
-        };
-      });
-    } catch (err) {
-      console.error("API error, generating dynamic flight fallback:", err);
-      // Fallback network data if endpoint is rate-limited
-      return Array.from({ length: 6 }).map((_, index) => ({
-        id: `fallback-${index}`,
-        airline: "Booking Air",
-        flightNumber: `BA-${200 + index * 12}`,
-        origin: originCode,
-        destination: destinationCode,
-        departTime: "08:15 AM",
-        arriveTime: "04:30 PM",
-        durationHours: 8,
-        duration: "8h 15m",
-        price: 310 + index * 50,
-        stops: index % 2 === 0 ? "Nonstop" : "1 Stop"
-      }));
+    if (response.status === 429) {
+      throw new Error("SwaggerHub rate limit reached (10 requests/min). Please wait 1 minute before searching again.");
     }
+
+    if (!response.ok) {
+      throw new Error(`SwaggerHub API HTTP Error: Status ${response.status}`);
+    }
+
+    const rawData = await response.json();
+    const results = Array.isArray(rawData) ? rawData : [rawData];
+
+    // Maps mock InventoryItem fields into display flight cards
+    return results.map((item, index) => ({
+      id: item.id || `fl-${index + 1}`,
+      airline: item.manufacturer?.name || "ACME Airlines",
+      flightNumber: item.name ? `AC-${item.name.replace(/[^0-9]/g, "") || "101"}` : `BA-${100 + index * 12}`,
+      origin: originCode,
+      destination: destinationCode,
+      departTime: `${8 + index}:15 AM`,
+      arriveTime: `${4 + index}:30 PM`,
+      durationHours: 8,
+      duration: "8h 15m",
+      price: 320 + index * 45,
+      stops: index % 2 === 0 ? "Nonstop" : "1 Stop"
+    }));
   }
 
 
   /* =======================================================
-     FILTERING & SORTING LOGIC
+     RENDER RESULTS & FILTERING
      ======================================================= */
 
   function applyFlightFilters(flights, sortBy = "price-asc", stopsFilter = "all") {
     return flights
       .filter(flight => {
-        if (stopsFilter === "nonstop") return flight.stops === "Nonstop";
-        if (stopsFilter === "stops") return flight.stops !== "Nonstop";
+        if (stopsFilter === "nonstop") return flight.stops.toLowerCase() === "nonstop";
+        if (stopsFilter === "stops") return flight.stops.toLowerCase() !== "nonstop";
         return true;
       })
       .sort((a, b) => {
@@ -408,11 +359,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return 0;
       });
   }
-
-
-  /* =======================================================
-     RENDER RESULTS & FILTER CONTROLS
-     ======================================================= */
 
   function renderFlightResultsUI(flights, metadata) {
     if (!resultsSection) return;
@@ -436,7 +382,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <strong>${totalPax} passenger${totalPax !== 1 ? "s" : ""}</strong>
       </div>
 
-      <!-- FILTER CONTROLS -->
       <div class="filter-bar" style="display: flex; gap: 1rem; margin: 1rem 0; padding: 1rem; background: #f4f4f5; border-radius: 8px;">
         <div>
           <label for="sortSelect"><b>Sort By:</b></label>
@@ -465,7 +410,6 @@ document.addEventListener("DOMContentLoaded", () => {
     resultsSection.hidden = false;
     resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
 
-    // Event listeners for interactive filtering
     const sortSelect = document.getElementById("sortSelect");
     const stopsSelect = document.getElementById("stopsSelect");
 
@@ -475,8 +419,8 @@ document.addEventListener("DOMContentLoaded", () => {
       attachSelectListeners();
     };
 
-    sortSelect.addEventListener("change", handleFilterChange);
-    stopsSelect.addEventListener("change", handleFilterChange);
+    if (sortSelect) sortSelect.addEventListener("change", handleFilterChange);
+    if (stopsSelect) stopsSelect.addEventListener("change", handleFilterChange);
     attachSelectListeners();
   }
 
@@ -542,7 +486,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const fromCode = getAirportCode(from);
       const toCode = getAirportCode(to);
 
-      showToast("Fetching live API flight data...");
+      showToast(`Fetching SwaggerHub mock data for ${fromCode} → ${toCode}...`);
 
       try {
         fetchedFlights = await fetchLiveFlights(fromCode, toCode);
@@ -556,231 +500,16 @@ document.addEventListener("DOMContentLoaded", () => {
           depart,
           returnDate
         });
-
-        saveRecentSearch({ from, to, fromCode, toCode, depart, returnDate });
       } catch (err) {
-        showError("Unable to fetch live flight data.");
+        console.error("SwaggerHub Fetch Error:", err);
+        showError(err.message || "Failed to fetch data from SwaggerHub mock server.");
       }
-    });
-  }
-
-  if (hotelForm) {
-    hotelForm.addEventListener("submit", event => {
-      event.preventDefault();
-      clearError();
-
-      const destination = document.getElementById("hotel-destination")?.value.trim();
-      const checkin = document.getElementById("hotel-checkin")?.value;
-      const checkout = document.getElementById("hotel-checkout")?.value;
-      const guests = document.getElementById("hotel-guests")?.value;
-
-      if (!destination || !checkin || !checkout) {
-        showError("Please fill out all hotel fields.");
-        return;
-      }
-
-      if (parseLocalDate(checkout) < parseLocalDate(checkin)) {
-        showError("Check-out date must be after check-in date.");
-        return;
-      }
-
-      showToast("Searching hotels...");
-      setTimeout(() => displayHotelResults({ destination, checkin, checkout, guests }), 500);
-    });
-  }
-
-  if (carForm) {
-    carForm.addEventListener("submit", event => {
-      event.preventDefault();
-      clearError();
-
-      const pickup = document.getElementById("car-pickup")?.value.trim();
-      const dropoff = document.getElementById("car-dropoff")?.value.trim();
-      const pickdate = document.getElementById("car-pickdate")?.value;
-      const dropdate = document.getElementById("car-dropdate")?.value;
-
-      if (!pickup || !dropoff || !pickdate || !dropdate) {
-        showError("Please fill out all rental car fields.");
-        return;
-      }
-
-      if (parseLocalDate(dropdate) < parseLocalDate(pickdate)) {
-        showError("Drop-off date must be after pick-up date.");
-        return;
-      }
-
-      showToast("Searching rental cars...");
-      setTimeout(() => displayCarResults({ pickup, dropoff, pickdate, dropdate }), 500);
     });
   }
 
 
   /* =======================================================
-     HOTEL & CAR RESULTS DISPLAY
-     ======================================================= */
-
-  function displayHotelResults(data) {
-    if (!resultsSection) return;
-
-    const hotels = [
-      { name: "Booking Air Grand Hotel", location: data.destination, rating: "4.8", price: "$189" },
-      { name: "City Center Hotel", location: data.destination, rating: "4.6", price: "$214" },
-      { name: "Airport View Hotel", location: data.destination, rating: "4.5", price: "$156" }
-    ];
-
-    resultsSection.innerHTML = `
-      <div class="results-header">
-        <div>
-          <h2>Hotel results</h2>
-          <p class="result-sub">${escapeHTML(data.destination)} · ${escapeHTML(data.guests)}</p>
-        </div>
-      </div>
-      <ul class="results-list">
-        ${hotels.map(hotel => `
-          <li class="result-card">
-            <div class="result-main">
-              <div class="result-time">${escapeHTML(hotel.name)}</div>
-              <div class="result-meta">${escapeHTML(hotel.location)}</div>
-              <div class="result-sub">★ ${escapeHTML(hotel.rating)} rating</div>
-            </div>
-            <div>
-              <div class="result-price">${escapeHTML(hotel.price)}<small> / night</small></div>
-              <button type="button" class="search-btn choose-hotel">Select</button>
-            </div>
-          </li>
-        `).join("")}
-      </ul>
-    `;
-
-    resultsSection.hidden = false;
-    resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  function displayCarResults(data) {
-    if (!resultsSection) return;
-
-    const cars = [
-      { name: "Economy Sedan", seats: 5, bags: 2, price: "$42" },
-      { name: "Compact SUV", seats: 5, bags: 3, price: "$58" },
-      { name: "Premium SUV", seats: 7, bags: 4, price: "$89" }
-    ];
-
-    resultsSection.innerHTML = `
-      <div class="results-header">
-        <div>
-          <h2>Rental car results</h2>
-          <p class="result-sub">${escapeHTML(data.pickup)} → ${escapeHTML(data.dropoff)}</p>
-        </div>
-      </div>
-      <ul class="results-list">
-        ${cars.map(car => `
-          <li class="result-card">
-            <div class="result-main">
-              <div class="result-time">🚗 ${escapeHTML(car.name)}</div>
-              <div class="result-meta">${car.seats} seats · ${car.bags} bags</div>
-              <div class="result-sub">Automatic · Unlimited mileage</div>
-            </div>
-            <div>
-              <div class="result-price">${escapeHTML(car.price)}<small> / day</small></div>
-              <button type="button" class="search-btn choose-car">Select</button>
-            </div>
-          </li>
-        `).join("")}
-      </ul>
-    `;
-
-    resultsSection.hidden = false;
-    resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-
-  /* =======================================================
-     RECENT SEARCHES & POPULAR ROUTES
-     ======================================================= */
-
-  function saveRecentSearch(data) {
-    if (!recentList) return;
-
-    const item = document.createElement("li");
-    item.className = "recent-item";
-    item.dataset.from = data.fromCode;
-    item.dataset.to = data.toCode;
-
-    item.innerHTML = `
-      <span class="ri-route">
-        <b>${escapeHTML(data.fromCode)}</b> <span>→</span> <b>${escapeHTML(data.toCode)}</b>
-      </span>
-      <span class="ri-meta">${escapeHTML(data.from)} · ${escapeHTML(data.to)}</span>
-      <span class="ri-date">
-        ${formatDisplayDate(data.depart)}
-        ${data.returnDate ? ` – ${formatDisplayDate(data.returnDate)}` : ""}
-      </span>
-    `;
-
-    recentList.prepend(item);
-    while (recentList.children.length > 5) {
-      recentList.lastElementChild.remove();
-    }
-  }
-
-  if (clearRecent) {
-    clearRecent.addEventListener("click", () => {
-      if (!recentList) return;
-      recentList.innerHTML = "";
-      showToast("Recent searches cleared.");
-    });
-  }
-
-  if (recentList) {
-    recentList.addEventListener("click", event => {
-      const item = event.target.closest(".recent-item");
-      if (!item) return;
-
-      const fromCode = item.dataset.from;
-      const toCode = item.dataset.to;
-
-      if (fromCode && toCode) {
-        fromInput.value = fromCode;
-        toInput.value = toCode;
-        updateAirportCode(fromInput);
-        updateAirportCode(toInput);
-        showToast(`${fromCode} → ${toCode} loaded.`);
-      }
-    });
-  }
-
-  routeCards.forEach(card => {
-    card.addEventListener("click", () => {
-      const from = card.dataset.fc;
-      const to = card.dataset.tc;
-
-      if (fromInput) fromInput.value = from;
-      if (toInput) toInput.value = to;
-
-      updateAirportCode(fromInput);
-      updateAirportCode(toInput);
-
-      currentService = "flights";
-
-      serviceTabs.forEach(tab => {
-        const active = tab.dataset.service === "flights";
-        tab.classList.toggle("active", active);
-        tab.setAttribute("aria-selected", active ? "true" : "false");
-      });
-
-      if (flightForm) flightForm.hidden = false;
-      if (hotelForm) hotelForm.hidden = true;
-      if (carForm) carForm.hidden = true;
-
-      clearError();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      showToast(`${from} → ${to} selected.`);
-    });
-  });
-
-
-  /* =======================================================
-     HELPERS & INITIALIZATION
+     HELPERS & UTILITIES
      ======================================================= */
 
   function showToast(message) {
@@ -813,7 +542,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/'/g, "&#039;");
   }
 
-  // Initial setup
+  // Initial UI Setup
   updateAirportCode(fromInput);
   updateAirportCode(toInput);
   if (returnField) returnField.hidden = false;
