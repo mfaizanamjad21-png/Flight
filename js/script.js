@@ -181,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const oldTo = toInput.value;
 
       fromInput.value = oldTo;
+      fromInput.value = oldTo;
       toInput.value = oldFrom;
 
       updateAirportCode(fromInput);
@@ -295,12 +296,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     SWAGGERHUB MOCK API CALL (/flights)
+     SWAGGERHUB MOCK API CALL (/inventory)
      ======================================================= */
 
   async function fetchLiveFlights(originCode, destinationCode) {
-    // Queries the native /flights endpoint on SwaggerHub
-    const endpoint = `https://virtserver.swaggerhub.com/faizan-a1c/Filght/1.0.0/flights?origin=${encodeURIComponent(originCode)}&destination=${encodeURIComponent(destinationCode)}`;
+    const endpoint = `https://virtserver.swaggerhub.com/faizan-a1c/BookSky/1.0.0/inventory?searchString=${encodeURIComponent(destinationCode)}`;
 
     const response = await fetch(endpoint, {
       method: "GET",
@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (response.status === 429) {
-      throw new Error("SwaggerHub rate limit reached (10 requests/min). Please wait 1 minute before trying again.");
+      throw new Error("SwaggerHub rate limit reached. Please wait 1 minute before trying again.");
     }
 
     if (!response.ok) {
@@ -320,19 +320,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const rawData = await response.json();
     const results = Array.isArray(rawData) ? rawData : [rawData];
 
-    // Uses native flight schema properties returned directly from SwaggerHub
-    return results.map(item => ({
-      id: item.id || "fl-default",
-      airline: item.airline || "Booking Air",
-      flightNumber: item.flightNumber || "BA-100",
+    return results.map((item, index) => ({
+      id: item.id || `inv-${index}`,
+      airline: item.manufacturer?.name || "Booking Air",
+      flightNumber: item.name || "BA-100",
       origin: originCode,
       destination: destinationCode,
-      departTime: item.departTime || "08:30 AM",
-      arriveTime: item.arriveTime || "08:45 PM",
-      durationHours: item.durationHours || 7,
-      duration: item.duration || "7h 15m",
-      price: item.price || 450,
-      stops: item.stops || "Nonstop"
+      departTime: "08:30 AM",
+      arriveTime: "08:45 PM",
+      durationHours: 7,
+      duration: "7h 15m",
+      price: 450,
+      stops: "Nonstop"
     }));
   }
 
